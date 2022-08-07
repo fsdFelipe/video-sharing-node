@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema(
         subscribedUsers:{
             type : [String],
         },
-    }
+    },
     {timestamps : true}
 )
 export default mongoose.model('Usuarios', UserSchema)
