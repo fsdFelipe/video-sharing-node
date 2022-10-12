@@ -6,7 +6,6 @@ import videoRoutes from './routes/videoRoute.js'
 import commentRoutes from './routes/commentRoute.js'
 import authRoutes from './routes/authRoute.js'
 import cookieParser from 'cookie-parser'
-import { signup } from './controller/authController.js'
 
 const app = express()
 dotenv.config()

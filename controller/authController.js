@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
-import mongoose from 'mongoose'
 import Usuario from '../model/Usuario.js'
 import jwt from "jsonwebtoken"
+import {error} from '../error.js'
 
 export const signup = async (req, res, next) =>{
     //console.log(req.body)
@@ -19,17 +19,19 @@ export const signup = async (req, res, next) =>{
 }
 
 export const signin = async (req, res, next) =>{
-    //console.log(req.body)
-    try{
+    console.log(req.body)
+    try{  
         const usuario = await Usuario.findOne({nome: req.body.nome})
-       if(!usuario) return next(createError(404), 'Usuario não encontrado')
+       if(!usuario) return next(error(404, 'Usuario não encontrado'))
         
        const isCorrect = await bcrypt.compare(req.body.senha, usuario.senha)
-       if(!isCorrect) return next(createError(404), 'Login ou senha incorretos')
+       if(!isCorrect) return next(error(400, 'Login ou senha incorretos'))
 
        const token = jwt.sign({id: usuario._id}, process.env.JWT)
        const{senha, ...others} = usuario._doc
-       res.cookie("access_token", token,{httpOnly:true}).status(200).json(others)
+       res.cookie('access_token ', token,{ httpOnly:true}).status(200).json(others)
+       console.log(others)
+
     }catch(erro){
         next(erro)
     }
