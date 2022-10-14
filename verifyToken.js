@@ -6,9 +6,9 @@ export const verifyToken = (req, res, next)=>{
     
     if(!token) return next(error(403, "Voce nao esta logado"))
 
-   jwt.verify(token, process.env.JWT, async (erro,user)=>{
+   jwt.verify(token, process.env.JWT, async (erro,usuario)=>{
         if(erro) return next(error(401,'Token invalido'))
-        req.usuario = user,
+        req.usuario = usuario,
         next()
     })
 }
