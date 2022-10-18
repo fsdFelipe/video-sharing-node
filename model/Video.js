@@ -5,7 +5,6 @@ const videoSchema = new mongoose.Schema(
         userId:{
             type : String,
             required : true,
-            unique : true,
         },
         title:{
             type : String,
@@ -39,7 +38,7 @@ const videoSchema = new mongoose.Schema(
             type : [String],
             default : []
         },
-    }
+    },
     {timestamps : true}
 )
 export default mongoose.model('Videos', videoSchema)

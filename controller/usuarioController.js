@@ -43,3 +43,33 @@ export const updateUser = async (req, res, next) => {
       next(erro)
     }
   }
+
+  //Subscribe
+  export const subscribe = async (req, res, next) =>{
+    try{
+      await Usuario.findByIdAndUpdate(req.usuario.id,{
+        $push: { subscribedUsers : req.params.id}
+      })
+      await Usuario.findByIdAndUpdate(req.params.id,{
+        $inc :{ subscribers : 1}
+      })
+      res.status(200).json('Subscription successful')
+    }catch(erro){
+      next(erro)
+    }
+  }
+
+   //Unsubscribe
+   export const unsubscribe = async (req, res, next) =>{
+    try{
+      await Usuario.findByIdAndUpdate(req.usuario.id,{
+        $push: { subscribedUsers : req.params.id}
+      })
+      await Usuario.findByIdAndUpdate(req.params.id,{
+        $inc :{ subscribers : -1}
+      })
+      res.status(200).json('unsubscription successful')
+    }catch(erro){
+      next(erro)
+    }
+  }
