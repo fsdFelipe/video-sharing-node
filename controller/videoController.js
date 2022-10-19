@@ -118,3 +118,27 @@ export const sub = async (req, res, next) =>{
         next(erro)
     }
 }
+
+//videos get by tag
+export const getByTag = async (req, res, next) =>{
+    const tags = req.query.tags
+    try{
+       const videos =  await Video.find({tags : {$in: tags}}).limit(20)
+         res.status(200).json(videos)
+    }catch(erro){
+        next(erro)
+    }
+}
+
+//videos get by search
+export const search = async (req, res, next) =>{
+    const query = req.query.busca
+    try{
+       const videos =  await Video.find({
+        title : {$regex: query, $options: 'i'},
+       }).limit(40)
+         res.status(200).json(videos)
+    }catch(erro){
+        next(erro)
+    }
+}
