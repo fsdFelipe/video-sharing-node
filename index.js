@@ -13,7 +13,7 @@ dotenv.config()
 app.use(express.json())
 app.use('/api/usuarios', userRoutes)
 app.use('/api/videos', videoRoutes)
-app.use('/api/comentarios', commentRoutes)
+app.use('/api/comments', commentRoutes)
 
 app.use('/api/auth', authRoutes)
 
