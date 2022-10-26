@@ -1,5 +1,6 @@
 import {error} from "../error.js"
 import Usuario from "../model/Usuario.js"
+import Video from "../model/Video.js"
 
 //Alterar dados do usuario
 export const updateUser = async (req, res, next) => {
@@ -69,6 +70,38 @@ export const updateUser = async (req, res, next) => {
         $inc :{ subscribers : -1}
       })
       res.status(200).json('unsubscription successful')
+    }catch(erro){
+      next(erro)
+    }
+  }
+
+  //Like
+  export const like = async (req, res, next) =>{
+    const id = req.usuario.id
+    const videoId = req.params.videoId
+
+    try{
+      await Video.findByIdAndUpdate(videoId, {
+        $addToSet:{like:id},
+        $pull: {dislike:id}
+      })
+      res.status(200).json('Curtiu !')
+    }catch(erro){
+      next(erro)
+    }
+  }
+
+  //Dislike
+  export const dislike = async (req, res, next) =>{
+    const id = req.usuario.id
+    const videoId = req.params.videoId
+
+    try{
+      await Video.findByIdAndUpdate(videoId, {
+        $addToSet:{dislike:id},
+        $pull: {like:id}
+      })
+      res.status(200).json('Não Curtiu !')
     }catch(erro){
       next(erro)
     }

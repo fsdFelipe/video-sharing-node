@@ -1,6 +1,6 @@
 import express from 'express'
 import {verifyToken } from '../verifyToken.js'
-import {subscribe, unsubscribe, updateUser, deleteUser, getUser} from '../controller/usuarioController.js'
+import {subscribe, unsubscribe, updateUser, deleteUser, getUser, like, dislike} from '../controller/usuarioController.js'
 
 const router = express.Router()
 
@@ -19,5 +19,10 @@ router.put("/sub/:id", verifyToken, subscribe);
 //unsubscribe a user
 router.put("/unsub/:id", verifyToken, unsubscribe);
 
+//like a video of user
+router.put('/like/:videoId', verifyToken, like)
+
+//dislike a video of user
+router.put('/dislike/:videoId', verifyToken, dislike)
 
 export default router;
