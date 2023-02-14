@@ -20,7 +20,9 @@ app.use('/api/auth', authRoutes)
 
 app.use(cookieParser())
 app.use(cors({
-    origin :'http://localhost:3000'
+    origin :'http://localhost:3000',
+    header : ("Access-Control-Allow-Origin", "*"),
+    header : ("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"),
 }))
 
 app.use((erro,req,res, next)=>{
