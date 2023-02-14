@@ -16,14 +16,17 @@ app.use('/api/usuarios', userRoutes)
 app.use('/api/videos', videoRoutes)
 app.use('/api/comments', commentRoutes)
 
-app.use('/api/auth', authRoutes)
+app.use('/api/auth',cors(), authRoutes)
 
 app.use(cookieParser())
-app.use(cors({
-    origin :'http://localhost:3000',
+app.use(cors(corsOptions))
+
+// Configuração do cors
+const corsOptions = {
+  origin :'http://localhost:3000',
     header : ("Access-Control-Allow-Origin", "*"),
     header : ("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"),
-}))
+}
 
 app.use((erro,req,res, next)=>{
     const status = erro.status || 500
